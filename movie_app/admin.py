@@ -1,11 +1,16 @@
 from django.contrib import admin, messages
 from django.contrib.auth.models import User
-from .models import Movie, Director, Actor
+from .models import Movie, Director, Actor, DressingRoom
 from django.db.models import QuerySet
 # Register your models here.
-
-# admin.site.register(Director)
 admin.site.register(Actor)
+
+
+@admin.register(DressingRoom)
+class MovieAdmin(admin.ModelAdmin):
+    list_display = ['floor', 'number', 'actor']
+
+
 
 @admin.register(Director)
 class DirectorAdmin(admin.ModelAdmin):
@@ -40,9 +45,9 @@ class MovieAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
     list_display = ['name', 'director', 'rating', 'year', 'budget', 'slug', 'rating_ststus']
     list_editable = ['director', 'rating', 'year', 'budget']
-    ordering = ['-rating'] #сортировка
+    ordering = ['-rating']                  #сортировка
     filter_horizontal = ['actors']
-    list_per_page = 10      #отобраение на каждом странице
+    list_per_page = 10                    #отобраение на каждом странице
     actions = ['set_dollars', 'set_euro']
     search_fields = ['name', 'rating']  #__startswith будет искать по 
     list_filter =  ['name', 'currency', RatingFilter, 'year']

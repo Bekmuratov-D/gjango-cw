@@ -7,6 +7,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 #from movie_app.models import Movie
 
 
+
+
 class Director(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -20,6 +22,15 @@ class Director(models.Model):
     #     self.slug = slugify(self.first_name)
     #     super(Director, self).save(*args, **kwargs)
 
+
+
+class DressingRoom(models.Model):
+    floor = models.IntegerField()
+    number = models.IntegerField()
+    def __str__(self):                            
+        return f'{self.floor} {self.number}'
+
+
 class Actor(models.Model):
     MALE = 'М'
     FEMALE = 'Ж'
@@ -31,6 +42,7 @@ class Actor(models.Model):
     last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER, default=MALE)
     slug = models.SlugField(default='', null=False, blank=True)
+    dressing = models.OneToOneField(DressingRoom, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):  
         if self.gender == self.MALE:                       # для вывода в током виде f'{self.name} - {self.rating}'
             return f'Актер {self.first_name} {self.last_name}'
