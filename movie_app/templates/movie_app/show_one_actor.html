@@ -6,8 +6,14 @@
 {% block content %} 
     
     <h3>{{actor}}</h3>  
-    <h3>{{ actor.first_name }}</h3>
-    <h3>{{ actor.last_name }}</h3>
-    <h3>{{ actor.gender }}</h3>
-
+    <h3>Иия - {{ actor.first_name }}</h3>
+    <h3>Фамилия - {{ actor.last_name }}</h3>
+    <h3>пол - {{ actor.gender }}</h3>
+    <hr>
+    <h3>Список Фильмов</h3>  
+    <ul>
+        {% for movie in actor.movie_set.all %}
+            <li>{{ movie }}</a></li>
+        {% endfor %}
+    </ul> 
 {% endblock %}

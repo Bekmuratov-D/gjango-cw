@@ -55,7 +55,7 @@ class Movie(models.Model):
     budget = models.IntegerField(default=1000000, validators=[MinValueValidator(1)])
     currency = models.CharField(max_length=3, choices=CHRRENCY_CHOICES, default=RUB)
     slug = models.SlugField(default='', null=False, blank=True)
-    director = models.ForeignKey(Director, on_delete=models.PROTECT, null=True)
+    director = models.ForeignKey(Director, on_delete=models.PROTECT, null=True, related_name='movies')
     actors = models.ManyToManyField(Actor)
 
 
